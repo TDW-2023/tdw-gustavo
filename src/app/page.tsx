@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import styles from './page.module.scss'
+import Image from "next/image";
+import styles from "./page.module.scss";
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -28,16 +28,18 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.center}>
+      <a href="/new-page" target="_blank">
+        <span>Access new page </span>
+
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
+          src="/fortaleza.png"
+          alt="Escudo Fortaleza"
+          className={styles.vercelLogo}
+          width={100}
+          height={100}
           priority
         />
-      </div>
+      </a>
 
       <div className={styles.grid}>
         <a
@@ -91,5 +93,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
