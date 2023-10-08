@@ -1,18 +1,18 @@
-import Image from 'next/image'
-import styles from '../src/app/page.module.scss'
+import Image from "next/image";
+import styles from "../src/app/page.module.scss";
 export default function TeamFortaleza() {
   return (
     <main className={styles.fortalezaPage}>
       <header>
         <h1>Fortaleza Esporte Clube</h1>
         <Image
-              src="/fortaleza.png"
-              alt="Escudo do Fortaleza"
-              className={styles.vercelLogo}
-              width={100}
-              height={100}
-              priority
-            />
+          src="/fortaleza.png"
+          alt="Escudo do Fortaleza"
+          className={styles.vercelLogo}
+          width={100}
+          height={100}
+          priority
+        />
       </header>
 
       <section>
