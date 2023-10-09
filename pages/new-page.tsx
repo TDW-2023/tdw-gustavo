@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "../src/app/page.module.scss";
+import React from "react";
 export default function TeamFortaleza() {
   return (
     <main className={styles.fortalezaPage}>
