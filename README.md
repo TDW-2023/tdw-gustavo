@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-
+![Coverage](https://img.shields.io/badge/jest-test-coverage-100%25-brightgreen.svg)
 # tdw-gustavo
 
 # Create initial project using Next.js for Technologies and Web Development class
@@ -41,6 +41,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)
 
 > > > > > > > main
