@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env HIDE_BABELRC=true npm test && next dev && node -e \"require('fs').renameSync('.babelrc_hidden', '.babelrc');\"",
-    "build": "node -e \"require('fs').renameSync('.babelrc', '.babelrc_hidden');\" && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node -e \"if (!require('fs').existsSync('.babelrc') && require('fs').existsSync('.babelrc_hidden')) { require('fs').renameSync('.babelrc_hidden', '.babelrc'); }\" && jest && node -e \"if (require('fs').existsSync('.babelrc')) { require('fs').renameSync('.babelrc', '.babelrc_hidden'); }\"",
