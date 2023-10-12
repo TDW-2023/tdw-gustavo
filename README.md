@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-![Coverage](https://img.shields.io/badge/jest-test-coverage-100%25-brightgreen.svg)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 # tdw-gustavo
 
 # Create initial project using Next.js for Technologies and Web Development class
