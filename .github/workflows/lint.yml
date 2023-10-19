@@ -24,11 +24,27 @@ jobs:
         run: npm ci
 
       - name: Run lint command
-        run: npm run lint
+        run: npm install
 
-      - name: Check pipeline status
+      - name: Run test command
+        run: npm test
+        
+  merge_check:
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Job Status
+        id: job_status
+        run: echo "::set-output name=job_status::failure"
+        if: failure()
+      
+      - name: Merge Request Check
         run: |
-          if [[ "${{ github.event.pull_request.mergeable_state }}" != "clean" ]]; then
-            echo "Pipeline failed. Merge request cannot be merged."
+          job_status=$GITHUB_JOB_STATUS_job_status
+          if [ "$job_status" == "success" ]; then
+            echo "All jobs are successful. You can proceed with the merge."
+          else
+            echo "One or more jobs failed. Merge request is blocked."
             exit 1
           fi
