@@ -3,7 +3,9 @@ name: Lint on Merge Request
 on:
   pull_request:
     types:
-      - closed
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   lint:
@@ -23,3 +25,10 @@ jobs:
 
       - name: Run lint command
         run: npm run lint
+
+      - name: Check pipeline status
+        run: |
+          if [[ "${{ github.event.pull_request.mergeable_state }}" != "clean" ]]; then
+            echo "Pipeline failed. Merge request cannot be merged."
+            exit 1
+          fi
