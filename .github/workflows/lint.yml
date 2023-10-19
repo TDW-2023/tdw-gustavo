@@ -1,12 +1,8 @@
 name: Lint on Merge Request
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-
+  [pull_request, push]
+    
 jobs:
   lint:
     runs-on: ubuntu-latest
