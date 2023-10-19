@@ -3,7 +3,9 @@ name: Lint on Merge Request
 on:
   pull_request:
     types:
-      - closed
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   lint:
@@ -23,3 +25,15 @@ jobs:
 
       - name: Run lint command
         run: npm run lint
+
+      - name: Run test command
+        run: npm run test
+
+  merge_check:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Check Job Status
+        id: job_status
+        run: echo "All jobs are successful"
