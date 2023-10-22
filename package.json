@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "node -e \"if (!require('fs').existsSync('.babelrc') && require('fs').existsSync('.babelrc_hidden')) { require('fs').renameSync('.babelrc_hidden', '.babelrc'); }\" && jest && node -e \"if (require('fs').existsSync('.babelrc')) { require('fs').renameSync('.babelrc', '.babelrc_hidden'); }\"",
     "test:watch": "node -e \"if (!require('fs').existsSync('.babelrc') && require('fs').existsSync('.babelrc_hidden')) { require('fs').renameSync('.babelrc_hidden', '.babelrc'); }\" && jest --watch && node -e \"if (require('fs').existsSync('.babelrc')) { require('fs').renameSync('.babelrc', '.babelrc_hidden'); }\"",
-    "test:coverage": "node -e \"if (!require('fs').existsSync('.babelrc') && require('fs').existsSync('.babelrc_hidden')) { require('fs').renameSync('.babelrc_hidden', '.babelrc'); }\" && jest --coverage && node -e \"if (require('fs').existsSync('.babelrc')) { require('fs').renameSync('.babelrc', '.babelrc_hidden'); }\""
+    "test:coverage": "node -e \"if (!require('fs').existsSync('.babelrc') && require('fs').existsSync('.babelrc_hidden')) { require('fs').renameSync('.babelrc_hidden', '.babelrc'); }\" && jest --coverage && node -e \"if (require('fs').existsSync('.babelrc')) { require('fs').renameSync('.babelrc', '.babelrc_hidden'); }\"",
+    "prettier": "prettier . --check . --write"
   },
   "dependencies": {
     "@types/node": "20.6.3",
@@ -18,6 +19,7 @@
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.2",
     "identity-obj-proxy": "^3.0.0",
+    "netlify-cli": "^16.9.1",
     "next": "^13.5.4",
     "node-sass": "^9.0.0",
     "react": "18.2.0",
@@ -32,6 +34,8 @@
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.0",
     "@jest/globals": "^29.7.0",
+    "@swc/cli": "^0.1.62",
+    "@swc/core": "^1.3.94",
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.5",
