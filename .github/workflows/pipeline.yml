@@ -32,7 +32,7 @@ jobs:
         run: npm run test
 
   cd-build:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: [ci-verify-lint-prettier-test]
 
@@ -61,7 +61,7 @@ jobs:
         run: echo "All jobs are successful"
 
   deploy:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
     name: Deploy
     needs: [cd-build]
     runs-on: ubuntu-latest
@@ -75,7 +75,15 @@ jobs:
       - name: Run build & export command
         run: npm run build
 
+      - name: Link Netlify Site
+        id: link_site
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: npx netlify-cli link --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
+
       - name: Netlify Deploy
+        if: steps.link_site.outcome == 'success'
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
