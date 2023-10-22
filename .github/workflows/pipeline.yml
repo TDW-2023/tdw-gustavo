@@ -32,7 +32,7 @@ jobs:
         run: npm run test
 
   cd-build:
-    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     needs: [ci-verify-lint-prettier-test]
 
@@ -44,6 +44,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
+      
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm ci
@@ -61,7 +69,7 @@ jobs:
         run: echo "All jobs are successful"
 
   deploy:
-    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request'
     name: Deploy
     needs: [cd-build]
     runs-on: ubuntu-latest
@@ -80,7 +88,7 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify-cli link --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
+        run: npx netlify-cli link --auth $NETLIFY_AUTH_TOKEN
 
       - name: Netlify Deploy
         if: steps.link_site.outcome == 'success'
