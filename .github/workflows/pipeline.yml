@@ -88,7 +88,7 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: npx netlify-cli link --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN
+        run: npx netlify-cli link --auth $NETLIFY_AUTH_TOKEN
 
       - name: Netlify Deploy
         if: steps.link_site.outcome == 'success'
