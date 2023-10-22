@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-import NewPage from '../../pages/new-page';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import renderer from "react-test-renderer";
+import NewPage from "../../pages/new-page";
 
 test('Text Validation: "Fortaleza"', () => {
   render(<NewPage />);
@@ -10,10 +10,12 @@ test('Text Validation: "Fortaleza"', () => {
 
   const numberOfOccurrences: number = textElements.length;
   expect(numberOfOccurrences).toBeGreaterThan(0);
-  console.log(`Número de ocorrências da palavra "Fortaleza": ${numberOfOccurrences}`);
+  console.log(
+    `Número de ocorrências da palavra "Fortaleza": ${numberOfOccurrences}`,
+  );
 });
 
-test('Snapshot for NewPage', () => {
+test("Snapshot for NewPage", () => {
   const component = renderer.create(<NewPage />);
   const tree = component.toJSON();
   expect(tree).toMatchSnapshot();

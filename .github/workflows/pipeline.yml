@@ -1,0 +1,82 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci-verify-lint-prettier-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint command
+        run: npm run lint
+
+      - name: Run prettier command
+        run: npm run prettier
+
+      - name: Run test command
+        run: npm run test
+
+  cd-build:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: [ci-verify-lint-prettier-test]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build & export command
+        run: npm run build
+
+  merge_check:
+    runs-on: ubuntu-latest
+    needs: [cd-build]
+
+    steps:
+      - name: Check Job Status
+        id: job_status
+        run: echo "All jobs are successful"
+
+  deploy:
+    if: github.event_name == 'pull_request'
+    name: Deploy
+    needs: [cd-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run build & export command
+        run: npm run build
+
+      - name: Netlify Deploy
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
